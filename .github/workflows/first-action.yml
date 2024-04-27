@@ -12,13 +12,16 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [ 16.x, 18.x]
         
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set dotenv environment variable (if needed)
-      run: echo 'DOTENV=true' >> $PORT
+    - name: create env file
+      run: |
+        touch .env
+        echo PORT=${{ secrets.PORT }} >> .env
+   
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
